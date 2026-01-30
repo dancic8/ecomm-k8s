@@ -1,0 +1,38 @@
+namespace: ecomm
+
+order:
+  replicaCount: 1
+  image:
+    repository: ecomm-order-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8080
+  env:
+    datasourceUrl: jdbc:postgresql://postgres:5432/orders
+    datasourceUsername: postgres
+    datasourcePassword: postgres
+    inventoryUrl: http://inventory:8081
+
+inventory:
+  replicaCount: 1
+  image:
+    repository: ecomm-inventory-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8081
+  env:
+    mongodbUri: mongodb://mongo:27017/inventory
+
+postgres:
+  image: postgres:15
+  username: postgres
+  password: postgres
+  database: orders
+  port: 5432
+
+mongo:
+  image: mongo:7
+  database: inventory
+  port: 27017

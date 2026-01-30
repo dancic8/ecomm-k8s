@@ -1,0 +1,19 @@
+# --- Java / Maven ---
+target/
+*.class
+*.log
+*.jar
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Terraform ---
+.terraform/
+*.tfstate
+*.tfstate.backup

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ecomm-app
+description: Helm chart for Ecomm microservices
+version: 0.1.0
+appVersion: "1.0.0"

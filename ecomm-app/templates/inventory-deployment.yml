@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-inventory
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.inventory.replicaCount }}
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      labels:
+        app: inventory
+    spec:
+      containers:
+        - name: inventory-service
+          image: "{{ .Values.inventory.image.repository }}:{{ .Values.inventory.image.tag }}"
+          imagePullPolicy: {{ .Values.inventory.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.inventory.service.port }}
+          env:
+            - name: SPRING_MONGODB_URI
+              value: {{ .Values.inventory.env.mongodbUri }}

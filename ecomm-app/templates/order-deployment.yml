@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-order
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.order.replicaCount }}
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order-service
+          image: "{{ .Values.order.image.repository }}:{{ .Values.order.image.tag }}"
+          imagePullPolicy: {{ .Values.order.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.order.service.port }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.order.env.datasourceUrl }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.order.env.datasourceUsername }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.order.env.datasourcePassword }}
+            - name: INVENTORY_URL
+              value: {{ .Values.order.env.inventoryUrl }}

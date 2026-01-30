@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: inventory-service
+  webflux:
+    base-path: /api
+  mongodb:
+    uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/inventory}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+#logging:
+#  level:
+#    root: trace
